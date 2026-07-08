@@ -22,7 +22,9 @@ jobs:
     - name: Setup Gradle
       uses: gradle/actions/setup-gradle@af1da67850ed9a4cedd57bfd976089dd991e2582 # v4.0.0
     - name: Test with Gradle Wrapper
-      run: ./gradlew test
+      run: |
+        chmod +x gradlew
+        ./gradlew test
       working-directory: back
   build-backend:
     runs-on: ubuntu-latest
@@ -38,7 +40,9 @@ jobs:
     - name: Setup Gradle
       uses: gradle/actions/setup-gradle@af1da67850ed9a4cedd57bfd976089dd991e2582 # v4.0.0
     - name: Build with Gradle Wrapper
-      run: ./gradlew build
+      run: |
+        chmod +x gradlew
+        ./gradlew build
       working-directory: back
     - name: Upload JAR file
       uses: actions/upload-artifact@v4
