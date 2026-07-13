@@ -12,7 +12,7 @@ WORKDIR /src
 RUN chmod +x gradlew && ./gradlew build 
 # add
 RUN ls -l build/libs
-RUN cp build/libs/*SNAPSHOT.jar build/libs/app.jar 
+RUN cp build/libs/*.jar build/libs/app.jar 
 
 FROM alpine:3.19 AS front
 COPY --from=front-build /src/dist/microcrm/browser /app/front
