@@ -1,0 +1,14 @@
+services:
+  microcrm:
+    build:
+      context: .
+      target: standalone
+
+    container_name: microcrm
+
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080"
+
+    restart: unless-stopped
