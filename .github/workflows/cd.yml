@@ -1,0 +1,84 @@
+name: CD 
+
+on:
+  #push:
+  #  branches: [ "main" ]
+  workflow_dispatch: 
+
+permissions:
+  contents: write
+  packages: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: npm ci
+      - name: Run Semantic Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npm run release
+      - name: Extract Version
+        id: version
+        run: |
+          VERSION=$(git describe --tags --abbrev=0 | sed 's/^v//')
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+
+  deliver-backend:
+    needs: release 
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - uses: docker/setup-buildx-action@v3
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .      
+          file: Dockerfile
+          target: back
+          push: true
+          tags: |
+            ghcr.io/${{ github.repository_owner }}/microcrm-back:latest
+            ghcr.io/${{ github.repository_owner }}/microcrm-back:${{ needs.release.outputs.version }}
+  deliver-frontend:
+    needs: release 
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - uses: docker/setup-buildx-action@v3
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with: 
+          context: .
+          file: Dockerfile
+          target: front
+          push: true
+          tags: |
+           ghcr.io/${{ github.repository_owner }}/microcrm-front:latest
+           ghcr.io/${{ github.repository_owner }}/microcrm-front:${{ needs.release.outputs.version }}
