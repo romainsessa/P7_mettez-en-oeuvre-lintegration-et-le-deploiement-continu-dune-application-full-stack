@@ -1,0 +1,30 @@
+{
+  "name": "p7-fsja",
+  "version": "1.0.0",
+  "description": "<p align=\"center\">\r    <img src=\"./front/src/favicon.png\" width=\"192px\" />\r </p>",
+  "main": "index.js",
+  "scripts": {
+    "release": "semantic-release"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/romainsessa/P7_mettez-en-oeuvre-lintegration-et-le-deploiement-continu-dune-application-full-stack.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/romainsessa/P7_mettez-en-oeuvre-lintegration-et-le-deploiement-continu-dune-application-full-stack/issues"
+  },
+  "homepage": "https://github.com/romainsessa/P7_mettez-en-oeuvre-lintegration-et-le-deploiement-continu-dune-application-full-stack#readme",
+  "devDependencies": {
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/commit-analyzer": "^13.0.1",
+    "@semantic-release/exec": "^7.1.0",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/github": "^12.0.9",
+    "@semantic-release/release-notes-generator": "^14.1.1",
+    "semantic-release": "^25.0.7"
+  }
+}

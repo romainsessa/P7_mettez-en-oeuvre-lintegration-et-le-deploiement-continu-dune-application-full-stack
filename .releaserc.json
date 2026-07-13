@@ -1,0 +1,26 @@
+{
+  "branches": ["main"],
+  "plugins": [
+    "@semantic-release/commit-analyzer",
+    "@semantic-release/release-notes-generator",
+    [
+      "@semantic-release/exec",
+      {
+        "prepareCmd": "sed -i 's/\"version\": \".*\"/\"version\": \"${nextRelease.version}\"/' front/package.json && sed -i \"s/^version *= *.*/version = '${nextRelease.version}'/\" back/build.gradle"
+      }
+    ],
+    "@semantic-release/changelog",
+    "@semantic-release/github",
+    [
+      "@semantic-release/git",
+      {
+        "assets": [
+          "CHANGELOG.md",
+          "front/package.json",
+          "back/build.gradle"
+        ],
+        "message": "chore(release): ${nextRelease.version}"
+      }
+    ]
+  ]
+}
