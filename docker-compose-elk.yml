@@ -1,40 +1,24 @@
-services:
-  microcrm:
-    build:
-      context: .
-      target: standalone
-    container_name: microcrm
-    ports:
-      - "80:80"
-      - "443:443"
-      - "8080:8080" 
-    restart: unless-stopped
-    networks:
-      - elk
-    volumes:
-      - ./logs:/logs
-    depends_on:
-      - logstash
+version: "3.8" 
 
+services:
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:8.11.0
     container_name: es01
     environment:
       - discovery.type=single-node
-      - ES_JAVA_OPTS=-Xms1g -Xmx1g
+      - ES_JAVA_OPTS=-Xms1g -Xmx1g   
       - xpack.security.enabled=false
       - xpack.security.http.ssl.enabled=false
     ports:
       - "9200:9200"
     networks:
-      - elk
+      - elk 
 
   logstash:
     image: docker.elastic.co/logstash/logstash:8.11.0
     container_name: logstash
     volumes:
       - ./logstash.conf:/usr/share/logstash/pipeline/logstash.conf
-      - ./logs:/logs
     ports:
       - "5044:5044"
     networks:
@@ -44,15 +28,15 @@ services:
 
   kibana:
     image: docker.elastic.co/kibana/kibana:8.11.0
-    container_name: kibana
+    container_name: kibana    
     environment:
-      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+    - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
     ports:
       - "5601:5601"
     networks:
       - elk
     depends_on:
-      - elasticsearch
+      - elasticsearch 
 
 networks:
   elk:
