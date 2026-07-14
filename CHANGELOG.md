@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/romainsessa/P7_mettez-en-oeuvre-lintegration-et-le-deploiement-continu-dune-application-full-stack/compare/v1.0.0...v1.0.1) (2026-07-13)
+
+
+### Bug Fixes
+
+* backend image build ([522c709](https://github.com/romainsessa/P7_mettez-en-oeuvre-lintegration-et-le-deploiement-continu-dune-application-full-stack/commit/522c709510f82a3b4340aeb34dbcbf89f5671c24))
+
 # 1.0.0 (2026-07-13)
 
 
