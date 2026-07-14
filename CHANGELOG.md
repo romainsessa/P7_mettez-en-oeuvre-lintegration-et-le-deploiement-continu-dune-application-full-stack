@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/romainsessa/P7_mettez-en-oeuvre-lintegration-et-le-deploiement-continu-dune-application-full-stack/compare/v1.0.1...v1.1.0) (2026-07-14)
+
+
+### Features
+
+* configure ELK stack ([1c9e59c](https://github.com/romainsessa/P7_mettez-en-oeuvre-lintegration-et-le-deploiement-continu-dune-application-full-stack/commit/1c9e59c57f02a3a5d9376168f74fa9d18a02f274))
+
 ## [1.0.1](https://github.com/romainsessa/P7_mettez-en-oeuvre-lintegration-et-le-deploiement-continu-dune-application-full-stack/compare/v1.0.0...v1.0.1) (2026-07-13)
 
 
