@@ -58,13 +58,16 @@ jobs:
         node-version: '20'
         cache: npm
         cache-dependency-path: front/package-lock.json
-    - name: Install Front Dependencies
-      run: npm ci
+    - name: Install Front Dependencies and Generete coverage
+      run: |
+        npm ci    
+        npm test -- --watch=false --browsers=ChromeHeadless --code-coverage
       working-directory: front
-    - name: Compile Java Classes
+    - name: Compile Java Classes and Generate coverage
       run: |
         chmod +x gradlew
-        ./gradlew classes
+        ./gradlew classes    
+        ./gradlew test jacocoTestReport
       working-directory: back
     - name: Sonar Scan
       uses: SonarSource/sonarqube-scan-action@v6
